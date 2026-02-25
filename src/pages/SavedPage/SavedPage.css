@@ -1,0 +1,43 @@
+/* ==========================================================================
+   SAVED PAGE
+   Saved job listings
+   ========================================================================== */
+
+@import '../../styles/tokens.css';
+
+.saved-page {
+  padding: var(--space-2) 0;
+}
+
+.saved-page__title {
+  font-family: var(--font-serif);
+  font-size: var(--text-4xl);
+  font-weight: var(--font-medium);
+  line-height: var(--leading-tight);
+  color: var(--color-text-primary);
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: var(--space-1);
+}
+
+.saved-page__count {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-3);
+}
+
+.saved-page__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: var(--space-3);
+}
+
+.saved-page__empty {
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 768px) {
+  .saved-page__grid {
+    grid-template-columns: 1fr;
+  }
+}

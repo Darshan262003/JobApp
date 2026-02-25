@@ -8,3 +8,6 @@ export { EmptyState } from './EmptyState/EmptyState';
 export { ErrorState } from './ErrorState/ErrorState';
 export { Navigation } from './Navigation/Navigation';
 export { PlaceholderPage } from './PlaceholderPage/PlaceholderPage';
+export { JobCard } from './JobCard/JobCard';
+export { JobModal } from './JobModal/JobModal';
+export { FilterBar } from './FilterBar/FilterBar';
