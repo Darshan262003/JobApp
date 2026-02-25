@@ -1,0 +1,79 @@
+/* ==========================================================================
+   LANDING PAGE
+   Premium SaaS landing with clear CTA
+   ========================================================================== */
+
+@import '../../styles/tokens.css';
+
+.landing-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-background);
+}
+
+.landing-page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--topbar-height);
+  padding: 0 var(--space-3);
+  background-color: var(--color-background-elevated);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.landing-page__brand {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+  letter-spacing: var(--tracking-tight);
+  text-decoration: none;
+}
+
+.landing-page__hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-5) var(--space-3);
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.landing-page__headline {
+  font-family: var(--font-serif);
+  font-size: var(--text-5xl);
+  font-weight: var(--font-medium);
+  line-height: var(--leading-tight);
+  color: var(--color-text-primary);
+  letter-spacing: var(--tracking-tight);
+  margin-bottom: var(--space-3);
+  max-width: 800px;
+}
+
+.landing-page__subtext {
+  font-family: var(--font-sans);
+  font-size: var(--text-xl);
+  line-height: var(--leading-normal);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+  max-width: 600px;
+}
+
+.landing-page__cta {
+  margin-top: var(--space-2);
+}
+
+@media (max-width: 768px) {
+  .landing-page__headline {
+    font-size: var(--text-4xl);
+  }
+  
+  .landing-page__subtext {
+    font-size: var(--text-lg);
+  }
+}

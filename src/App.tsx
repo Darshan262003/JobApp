@@ -1,23 +1,28 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { MainLayout } from './layouts/MainLayout/MainLayout';
-import { PlaceholderPage } from './components/PlaceholderPage/PlaceholderPage';
+import { LandingPage } from './pages/LandingPage/LandingPage';
+import { DashboardPage } from './pages/DashboardPage/DashboardPage';
+import { SavedPage } from './pages/SavedPage/SavedPage';
+import { DigestPage } from './pages/DigestPage/DigestPage';
+import { SettingsPage } from './pages/SettingsPage/SettingsPage';
+import { ProofPage } from './pages/ProofPage/ProofPage';
 import { NotFound } from './pages/NotFound/NotFound';
 import './styles/global.css';
 
 function App() {
   return (
     <BrowserRouter>
-      <MainLayout>
-        <Routes>
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/dashboard" element={<PlaceholderPage title="Dashboard" />} />
-          <Route path="/saved" element={<PlaceholderPage title="Saved" />} />
-          <Route path="/digest" element={<PlaceholderPage title="Digest" />} />
-          <Route path="/settings" element={<PlaceholderPage title="Settings" />} />
-          <Route path="/proof" element={<PlaceholderPage title="Proof" />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </MainLayout>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route element={<MainLayout />}>
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/saved" element={<SavedPage />} />
+          <Route path="/digest" element={<DigestPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="/proof" element={<ProofPage />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </BrowserRouter>
   );
 }
