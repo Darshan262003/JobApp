@@ -7,12 +7,14 @@ export interface FilterState {
   experience: string;
   source: string;
   sort: string;
+  showOnlyMatches: boolean;
 }
 
 interface FilterBarProps {
   filters: FilterState;
   onFilterChange: (filters: FilterState) => void;
   resultCount: number;
+  hasPreferences?: boolean;
 }
 
 const locations = ['All', 'Bangalore', 'Hyderabad', 'Chennai', 'Pune', 'Mumbai', 'Gurgaon', 'Noida', 'Kolkata', 'Remote'];
@@ -22,10 +24,11 @@ const sources = ['All', 'LinkedIn', 'Naukri', 'Indeed'];
 const sortOptions = [
   { value: 'latest', label: 'Latest First' },
   { value: 'oldest', label: 'Oldest First' },
+  { value: 'matchScore', label: 'Match Score' },
 ];
 
-export function FilterBar({ filters, onFilterChange, resultCount }: FilterBarProps) {
-  const handleChange = (key: keyof FilterState, value: string) => {
+export function FilterBar({ filters, onFilterChange, resultCount, hasPreferences }: FilterBarProps) {
+  const handleChange = (key: keyof FilterState, value: string | boolean) => {
     onFilterChange({ ...filters, [key]: value });
   };
 
@@ -102,6 +105,19 @@ export function FilterBar({ filters, onFilterChange, resultCount }: FilterBarPro
           </select>
         </div>
       </div>
+
+      {hasPreferences && (
+        <div className="filter-bar__toggle">
+          <label className="filter-bar__toggle-label">
+            <input
+              type="checkbox"
+              checked={filters.showOnlyMatches}
+              onChange={(e) => handleChange('showOnlyMatches', e.target.checked)}
+            />
+            <span>Show only jobs above my threshold</span>
+          </label>
+        </div>
+      )}
 
       <div className="filter-bar__results">
         {resultCount} job{resultCount !== 1 ? 's' : ''} found

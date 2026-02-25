@@ -1,15 +1,17 @@
 import type { Job } from '../../data/jobs';
 import { saveJob, unsaveJob } from '../../utils/storage';
+import { getMatchScoreColor } from '../../utils/matcher';
 import './JobCard.css';
 
 interface JobCardProps {
   job: Job;
+  matchScore?: number;
   onView: (job: Job) => void;
   onSaveToggle: (jobId: string, isSaved: boolean) => void;
   isSaved: boolean;
 }
 
-export function JobCard({ job, onView, onSaveToggle, isSaved }: JobCardProps) {
+export function JobCard({ job, matchScore, onView, onSaveToggle, isSaved }: JobCardProps) {
   const handleSave = () => {
     if (isSaved) {
       unsaveJob(job.id);
@@ -37,6 +39,14 @@ export function JobCard({ job, onView, onSaveToggle, isSaved }: JobCardProps) {
           <h3 className="job-card__title">{job.title}</h3>
           <div className="job-card__company">{job.company}</div>
         </div>
+        {matchScore !== undefined && (
+          <div 
+            className="job-card__score-badge"
+            style={{ backgroundColor: getMatchScoreColor(matchScore) }}
+          >
+            {matchScore}%
+          </div>
+        )}
       </div>
 
       <div className="job-card__meta">

@@ -124,3 +124,27 @@ export type NavigationProps = {
 export type PlaceholderPageProps = {
   title: string;
 };
+
+// -------------------------------------------------------------------------
+// PREFERENCES TYPES
+// -------------------------------------------------------------------------
+
+export type UserPreferences = {
+  roleKeywords: string;
+  preferredLocations: string[];
+  preferredMode: string[];
+  experienceLevel: string;
+  skills: string;
+  minMatchScore: number;
+};
+
+export type MatchScoreConfig = {
+  roleInTitle: number;
+  roleInDescription: number;
+  locationMatch: number;
+  modeMatch: number;
+  experienceMatch: number;
+  skillsMatch: number;
+  recentPosting: number;
+  linkedInSource: number;
+};
