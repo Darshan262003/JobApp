@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { jobs } from '../../data/jobs';
 import { Button } from '../../components/Button/Button';
 import { EmptyState } from '../../components/EmptyState/EmptyState';
-import { getPreferences, hasPreferences } from '../../utils/storage';
+import { getPreferences, hasPreferences, getStatusUpdates, getStatusColor } from '../../utils/storage';
 import { generateDigest, getTodaysDigest, formatDigestForClipboard, createEmailDraft, type DailyDigest } from '../../utils/digest';
 import { getMatchScoreColor } from '../../utils/matcher';
 import './DigestPage.css';
@@ -147,6 +147,50 @@ export function DigestPage() {
       </div>
 
       <p className="digest-page__note">Demo Mode: Daily 9AM trigger simulated manually.</p>
+
+      {/* Recent Status Updates */}
+      <StatusUpdatesSection />
+    </div>
+  );
+}
+
+function StatusUpdatesSection() {
+  const updates = useMemo(() => getStatusUpdates(), []);
+  
+  if (updates.length === 0) return null;
+
+  const formatDate = (isoString: string) => {
+    const date = new Date(isoString);
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
+  return (
+    <div className="digest-page__status-updates">
+      <h2 className="digest-page__status-updates-title">Recent Status Updates</h2>
+      <div className="digest-page__status-updates-list">
+        {updates.slice(0, 5).map((update) => (
+          <div key={`${update.jobId}-${update.updatedAt}`} className="digest-page__status-update">
+            <div className="digest-page__status-update-info">
+              <span className="digest-page__status-update-job">{update.jobTitle}</span>
+              <span className="digest-page__status-update-company">{update.company}</span>
+            </div>
+            <div className="digest-page__status-update-meta">
+              <span 
+                className="digest-page__status-update-badge"
+                style={{ backgroundColor: getStatusColor(update.status) }}
+              >
+                {update.status}
+              </span>
+              <span className="digest-page__status-update-date">{formatDate(update.updatedAt)}</span>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

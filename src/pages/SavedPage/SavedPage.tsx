@@ -3,12 +3,14 @@ import { jobs, type Job } from '../../data/jobs';
 import { JobCard } from '../../components/JobCard/JobCard';
 import { JobModal } from '../../components/JobModal/JobModal';
 import { EmptyState } from '../../components/EmptyState/EmptyState';
-import { getSavedJobs } from '../../utils/storage';
+import { Toast, ToastContainer } from '../../components/Toast/Toast';
+import { getSavedJobs, type JobStatus } from '../../utils/storage';
 import './SavedPage.css';
 
 export function SavedPage() {
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [savedJobIds, setSavedJobIds] = useState<string[]>(getSavedJobs());
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const savedJobs = useMemo(() => {
     return jobs.filter((job) => savedJobIds.includes(job.id));
@@ -18,6 +20,12 @@ export function SavedPage() {
     setSavedJobIds((prev) =>
       isSaved ? [...prev, jobId] : prev.filter((id) => id !== jobId)
     );
+  };
+
+  const handleStatusChange = (_jobId: string, status: JobStatus) => {
+    if (status !== 'Not Applied') {
+      setToastMessage(`Status updated: ${status}`);
+    }
   };
 
   if (savedJobs.length === 0) {
@@ -46,12 +54,21 @@ export function SavedPage() {
             onView={setSelectedJob}
             onSaveToggle={handleSaveToggle}
             isSaved={savedJobIds.includes(job.id)}
+            onStatusChange={handleStatusChange}
           />
         ))}
       </div>
       {selectedJob && (
         <JobModal job={selectedJob} onClose={() => setSelectedJob(null)} />
       )}
+      <ToastContainer>
+        {toastMessage && (
+          <Toast 
+            message={toastMessage} 
+            onClose={() => setToastMessage(null)} 
+          />
+        )}
+      </ToastContainer>
     </div>
   );
 }

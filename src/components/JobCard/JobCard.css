@@ -170,3 +170,48 @@
 .job-card__btn--apply:hover {
   background-color: var(--color-accent-hover);
 }
+
+/* Status buttons */
+.job-card__status {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+  padding: var(--space-2);
+  background-color: var(--color-background);
+  border-radius: var(--radius-md);
+}
+
+.job-card__status-label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.job-card__status-buttons {
+  display: flex;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+}
+
+.job-card__status-btn {
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  padding: 4px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  background-color: transparent;
+}
+
+.job-card__status-btn:hover {
+  border-color: var(--status-color, var(--color-border));
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.job-card__status-btn--active {
+  border-color: transparent;
+}

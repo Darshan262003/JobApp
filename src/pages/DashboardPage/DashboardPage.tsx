@@ -4,7 +4,8 @@ import { JobCard } from '../../components/JobCard/JobCard';
 import { JobModal } from '../../components/JobModal/JobModal';
 import { FilterBar, type FilterState } from '../../components/FilterBar/FilterBar';
 import { EmptyState } from '../../components/EmptyState/EmptyState';
-import { getSavedJobs, getPreferences, hasPreferences } from '../../utils/storage';
+import { Toast, ToastContainer } from '../../components/Toast/Toast';
+import { getSavedJobs, getPreferences, hasPreferences, getJobStatus, type JobStatus } from '../../utils/storage';
 import { calculateMatchScore } from '../../utils/matcher';
 import './DashboardPage.css';
 
@@ -20,9 +21,11 @@ export function DashboardPage() {
     source: '',
     sort: 'latest',
     showOnlyMatches: false,
+    status: '',
   });
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [savedJobIds, setSavedJobIds] = useState<string[]>(getSavedJobs());
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Calculate match scores for all jobs
   const jobsWithScores = useMemo(() => {
@@ -54,8 +57,12 @@ export function DashboardPage() {
       
       // Match threshold filter
       const matchesThreshold = !filters.showOnlyMatches || matchScore >= userPrefs.minMatchScore;
+      
+      // Status filter
+      const jobStatus = getJobStatus(job.id);
+      const matchesStatus = !filters.status || jobStatus === filters.status;
 
-      return matchesKeyword && matchesLocation && matchesMode && matchesExperience && matchesSource && matchesThreshold;
+      return matchesKeyword && matchesLocation && matchesMode && matchesExperience && matchesSource && matchesThreshold && matchesStatus;
     });
 
     // Sort
@@ -79,6 +86,12 @@ export function DashboardPage() {
     setSavedJobIds((prev) =>
       isSaved ? [...prev, jobId] : prev.filter((id) => id !== jobId)
     );
+  };
+
+  const handleStatusChange = (_jobId: string, status: JobStatus) => {
+    if (status !== 'Not Applied') {
+      setToastMessage(`Status updated: ${status}`);
+    }
   };
 
   // No preferences banner
@@ -146,12 +159,21 @@ export function DashboardPage() {
             onView={setSelectedJob}
             onSaveToggle={handleSaveToggle}
             isSaved={savedJobIds.includes(job.id)}
+            onStatusChange={handleStatusChange}
           />
         ))}
       </div>
       {selectedJob && (
         <JobModal job={selectedJob} onClose={() => setSelectedJob(null)} />
       )}
+      <ToastContainer>
+        {toastMessage && (
+          <Toast 
+            message={toastMessage} 
+            onClose={() => setToastMessage(null)} 
+          />
+        )}
+      </ToastContainer>
     </div>
   );
 }

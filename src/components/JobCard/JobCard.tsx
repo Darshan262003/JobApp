@@ -1,5 +1,5 @@
 import type { Job } from '../../data/jobs';
-import { saveJob, unsaveJob } from '../../utils/storage';
+import { saveJob, unsaveJob, getJobStatus, setJobStatus, getStatusColor, type JobStatus } from '../../utils/storage';
 import { getMatchScoreColor } from '../../utils/matcher';
 import './JobCard.css';
 
@@ -9,9 +9,14 @@ interface JobCardProps {
   onView: (job: Job) => void;
   onSaveToggle: (jobId: string, isSaved: boolean) => void;
   isSaved: boolean;
+  onStatusChange?: (jobId: string, status: JobStatus) => void;
 }
 
-export function JobCard({ job, matchScore, onView, onSaveToggle, isSaved }: JobCardProps) {
+const STATUS_OPTIONS: JobStatus[] = ['Not Applied', 'Applied', 'Rejected', 'Selected'];
+
+export function JobCard({ job, matchScore, onView, onSaveToggle, isSaved, onStatusChange }: JobCardProps) {
+  const currentStatus = getJobStatus(job.id);
+
   const handleSave = () => {
     if (isSaved) {
       unsaveJob(job.id);
@@ -24,6 +29,11 @@ export function JobCard({ job, matchScore, onView, onSaveToggle, isSaved }: JobC
 
   const handleApply = () => {
     window.open(job.applyUrl, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleStatusChange = (status: JobStatus) => {
+    setJobStatus(job.id, status, job.title, job.company);
+    onStatusChange?.(job.id, status);
   };
 
   const formatPostedTime = (days: number) => {
@@ -67,6 +77,26 @@ export function JobCard({ job, matchScore, onView, onSaveToggle, isSaved }: JobC
       </div>
 
       <div className="job-card__salary">{job.salaryRange}</div>
+
+      <div className="job-card__status">
+        <span className="job-card__status-label">Status:</span>
+        <div className="job-card__status-buttons">
+          {STATUS_OPTIONS.map(status => (
+            <button
+              key={status}
+              className={`job-card__status-btn ${currentStatus === status ? 'job-card__status-btn--active' : ''}`}
+              style={{ 
+                '--status-color': getStatusColor(status),
+                backgroundColor: currentStatus === status ? getStatusColor(status) : 'transparent',
+                color: currentStatus === status ? 'white' : getStatusColor(status)
+              } as React.CSSProperties}
+              onClick={() => handleStatusChange(status)}
+            >
+              {status}
+            </button>
+          ))}
+        </div>
+      </div>
 
       <div className="job-card__footer">
         <div className="job-card__badges">

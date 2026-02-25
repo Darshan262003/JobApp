@@ -1,5 +1,7 @@
 import './FilterBar.css';
 
+import type { JobStatus } from '../../utils/storage';
+
 export interface FilterState {
   keyword: string;
   location: string;
@@ -8,6 +10,7 @@ export interface FilterState {
   source: string;
   sort: string;
   showOnlyMatches: boolean;
+  status: JobStatus | '';
 }
 
 interface FilterBarProps {
@@ -25,6 +28,13 @@ const sortOptions = [
   { value: 'latest', label: 'Latest First' },
   { value: 'oldest', label: 'Oldest First' },
   { value: 'matchScore', label: 'Match Score' },
+];
+const statuses: { value: JobStatus | 'All'; label: string }[] = [
+  { value: 'All', label: 'All' },
+  { value: 'Not Applied', label: 'Not Applied' },
+  { value: 'Applied', label: 'Applied' },
+  { value: 'Rejected', label: 'Rejected' },
+  { value: 'Selected', label: 'Selected' },
 ];
 
 export function FilterBar({ filters, onFilterChange, resultCount, hasPreferences }: FilterBarProps) {
@@ -101,6 +111,18 @@ export function FilterBar({ filters, onFilterChange, resultCount, hasPreferences
           >
             {sortOptions.map(opt => (
               <option key={opt.value} value={opt.value}>{opt.label}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="filter-bar__select-wrapper">
+          <select
+            className="filter-bar__select"
+            value={filters.status}
+            onChange={(e) => handleChange('status', e.target.value as JobStatus)}
+          >
+            {statuses.map(stat => (
+              <option key={stat.value} value={stat.value === 'All' ? '' : stat.value}>{stat.label}</option>
             ))}
           </select>
         </div>
