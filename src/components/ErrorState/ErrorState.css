@@ -1,0 +1,77 @@
+/* ==========================================================================
+   ERROR STATE COMPONENT
+   Clearly explains what went wrong and how to fix it
+   Never blames the user
+   ========================================================================== */
+
+@import '../../styles/tokens.css';
+
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--space-3);
+  background-color: var(--color-accent-light);
+  border: 1px solid rgba(139, 0, 0, 0.15);
+  border-radius: var(--radius-lg);
+  border-left: 4px solid var(--color-accent);
+}
+
+.error-state__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.error-state__icon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.error-state__title {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  color: var(--color-accent);
+  margin: 0;
+}
+
+.error-state__description {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
+  line-height: var(--leading-normal);
+}
+
+.error-state__solution {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  background-color: var(--color-background-elevated);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-2);
+  width: 100%;
+}
+
+.error-state__solution-label {
+  font-size: var(--text-xs);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  flex-shrink: 0;
+}
+
+.error-state__solution-text {
+  font-size: var(--text-sm);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.error-state__action {
+  margin-top: var(--space-1);
+}

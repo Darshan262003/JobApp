@@ -1,0 +1,18 @@
+/* ==========================================================================
+   CARD COMPONENT
+   Clean cards with subtle borders, no heavy shadows
+   ========================================================================== */
+
+@import '../../styles/tokens.css';
+
+.card {
+  background-color: var(--color-background-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  transition: border-color var(--transition-fast);
+}
+
+.card:hover {
+  border-color: var(--color-text-tertiary);
+}

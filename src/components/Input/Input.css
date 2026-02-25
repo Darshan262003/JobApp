@@ -1,0 +1,65 @@
+/* ==========================================================================
+   INPUT COMPONENT
+   Clean borders, clear focus state
+   ========================================================================== */
+
+@import '../../styles/tokens.css';
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 100%;
+}
+
+.input-wrapper__label {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+}
+
+.input-wrapper__field {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-background-elevated);
+  color: var(--color-text-primary);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  min-height: 40px;
+}
+
+.input-wrapper__field::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.input-wrapper__field:hover:not(:disabled) {
+  border-color: var(--color-text-tertiary);
+}
+
+.input-wrapper__field:focus {
+  outline: none;
+  border-color: var(--color-border-focus);
+  box-shadow: 0 0 0 3px var(--color-accent-light);
+}
+
+.input-wrapper__field:disabled {
+  background-color: var(--color-background);
+  color: var(--color-text-tertiary);
+  cursor: not-allowed;
+}
+
+.input-wrapper__field--error {
+  border-color: var(--color-accent);
+}
+
+.input-wrapper__field--error:focus {
+  box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.15);
+}
+
+.input-wrapper__error {
+  font-size: var(--text-sm);
+  color: var(--color-accent);
+  margin-top: var(--space-1);
+}

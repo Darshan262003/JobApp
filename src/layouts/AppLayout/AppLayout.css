@@ -1,0 +1,56 @@
+/* ==========================================================================
+   APP LAYOUT
+   [Top Bar] → [Context Header] → [Primary Workspace (70%)] + [Secondary Panel (30%)] → [Proof Footer]
+   ========================================================================== */
+
+@import '../../styles/tokens.css';
+
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--color-background);
+}
+
+.app-layout__main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-layout__content {
+  display: flex;
+  flex: 1;
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  width: 100%;
+  padding: var(--space-3);
+  gap: var(--space-3);
+}
+
+.app-layout__primary {
+  flex: 0 0 var(--layout-primary-width);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.app-layout__secondary {
+  flex: 0 0 var(--layout-secondary-width);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .app-layout__content {
+    flex-direction: column;
+  }
+  
+  .app-layout__primary,
+  .app-layout__secondary {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+}
