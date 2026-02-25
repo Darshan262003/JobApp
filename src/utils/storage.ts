@@ -157,3 +157,66 @@ export function getStatusColor(status: JobStatus): string {
       return 'var(--color-text-tertiary)';
   }
 }
+
+// Test Checklist types
+export type TestChecklistItem = {
+  id: string;
+  label: string;
+  tooltip: string;
+  checked: boolean;
+};
+
+export const DEFAULT_TEST_CHECKLIST: TestChecklistItem[] = [
+  { id: 'prefs-persist', label: 'Preferences persist after refresh', tooltip: 'Set preferences, refresh page, verify they remain', checked: false },
+  { id: 'match-score', label: 'Match score calculates correctly', tooltip: 'Check that jobs show match scores based on your preferences', checked: false },
+  { id: 'show-matches', label: '"Show only matches" toggle works', tooltip: 'Toggle filter and verify only jobs above threshold show', checked: false },
+  { id: 'save-persist', label: 'Save job persists after refresh', tooltip: 'Save a job, refresh, verify it remains saved', checked: false },
+  { id: 'apply-tab', label: 'Apply opens in new tab', tooltip: 'Click Apply button, verify it opens in new tab', checked: false },
+  { id: 'status-persist', label: 'Status update persists after refresh', tooltip: 'Change job status, refresh, verify status remains', checked: false },
+  { id: 'status-filter', label: 'Status filter works correctly', tooltip: 'Use status filter dropdown, verify correct jobs show', checked: false },
+  { id: 'digest-generate', label: 'Digest generates top 10 by score', tooltip: 'Generate digest, verify top 10 jobs by match score', checked: false },
+  { id: 'digest-persist', label: 'Digest persists for the day', tooltip: 'Generate digest, refresh, verify it loads automatically', checked: false },
+  { id: 'no-errors', label: 'No console errors on main pages', tooltip: 'Check browser console on all pages for errors', checked: false },
+];
+
+const TEST_CHECKLIST_KEY = 'jobTrackerTestStatus';
+
+export function getTestChecklist(): TestChecklistItem[] {
+  try {
+    const saved = localStorage.getItem(TEST_CHECKLIST_KEY);
+    if (!saved) return DEFAULT_TEST_CHECKLIST;
+    const parsed = JSON.parse(saved);
+    // Merge with defaults to ensure all items exist
+    return DEFAULT_TEST_CHECKLIST.map(defaultItem => ({
+      ...defaultItem,
+      checked: parsed.find((p: TestChecklistItem) => p.id === defaultItem.id)?.checked ?? false
+    }));
+  } catch {
+    return DEFAULT_TEST_CHECKLIST;
+  }
+}
+
+export function saveTestChecklist(checklist: TestChecklistItem[]): void {
+  try {
+    localStorage.setItem(TEST_CHECKLIST_KEY, JSON.stringify(checklist));
+  } catch {
+    // Silently fail
+  }
+}
+
+export function resetTestChecklist(): void {
+  try {
+    localStorage.removeItem(TEST_CHECKLIST_KEY);
+  } catch {
+    // Silently fail
+  }
+}
+
+export function getPassedTestCount(): number {
+  const checklist = getTestChecklist();
+  return checklist.filter(item => item.checked).length;
+}
+
+export function areAllTestsPassed(): boolean {
+  return getPassedTestCount() === DEFAULT_TEST_CHECKLIST.length;
+}

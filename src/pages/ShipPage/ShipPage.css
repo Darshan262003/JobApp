@@ -1,0 +1,164 @@
+/* ==========================================================================
+   SHIP PAGE
+   Deployment gate with test lock
+   ========================================================================== */
+
+@import '../../styles/tokens.css';
+
+.ship-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-2);
+  text-align: center;
+}
+
+.ship-page--locked {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.ship-page--unlocked {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Lock Icon */
+.ship-page__lock-icon {
+  width: 80px;
+  height: 80px;
+  color: var(--color-accent);
+  opacity: 0.8;
+}
+
+.ship-page__lock-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Success Icon */
+.ship-page__success-icon {
+  width: 80px;
+  height: 80px;
+  color: var(--color-success);
+}
+
+.ship-page__success-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Title & Subtitle */
+.ship-page__title {
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+  margin: 0;
+  letter-spacing: var(--tracking-tight);
+}
+
+.ship-page__subtitle {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Progress Bar (Locked State) */
+.ship-page__progress {
+  width: 100%;
+  max-width: 300px;
+  height: 8px;
+  background-color: var(--color-background-elevated);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.ship-page__progress-bar {
+  height: 100%;
+  background-color: var(--color-accent);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-normal);
+}
+
+/* Checklist (Unlocked State) */
+.ship-page__checklist {
+  width: 100%;
+  max-width: 400px;
+  background-color: var(--color-background-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  text-align: left;
+  margin: var(--space-2) 0;
+}
+
+.ship-page__checklist-title {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-2) 0;
+  text-align: center;
+}
+
+.ship-page__checklist-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.ship-page__checklist-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.ship-page__checklist-item svg {
+  width: 20px;
+  height: 20px;
+  color: var(--color-success);
+  flex-shrink: 0;
+}
+
+.ship-page__checklist-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.ship-page__checklist-item--checked {
+  color: var(--color-text-primary);
+}
+
+/* Actions */
+.ship-page__actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .ship-page {
+    padding: var(--space-3) var(--space-2);
+  }
+
+  .ship-page__actions {
+    flex-direction: column;
+    width: 100%;
+  }
+}

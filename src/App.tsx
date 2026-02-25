@@ -6,6 +6,8 @@ import { SavedPage } from './pages/SavedPage/SavedPage';
 import { DigestPage } from './pages/DigestPage/DigestPage';
 import { SettingsPage } from './pages/SettingsPage/SettingsPage';
 import { ProofPage } from './pages/ProofPage/ProofPage';
+import { TestChecklistPage } from './pages/TestChecklistPage/TestChecklistPage';
+import { ShipPage } from './pages/ShipPage/ShipPage';
 import { NotFound } from './pages/NotFound/NotFound';
 import './styles/global.css';
 
@@ -20,6 +22,8 @@ function App() {
           <Route path="/digest" element={<DigestPage />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="/proof" element={<ProofPage />} />
+          <Route path="/jt/07-test" element={<TestChecklistPage />} />
+          <Route path="/jt/08-ship" element={<ShipPage />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
