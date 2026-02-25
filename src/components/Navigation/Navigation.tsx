@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import type { NavigationProps } from '../../types';
 import './Navigation.css';
 
 export function Navigation({ items }: NavigationProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = useLocation();
 
   const handleLinkClick = () => {
     setIsMobileMenuOpen(false);
