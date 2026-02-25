@@ -103,3 +103,24 @@ export type ErrorStateProps = {
   solution?: string;
   onRetry?: () => void;
 };
+
+// -------------------------------------------------------------------------
+// NAVIGATION TYPES
+// -------------------------------------------------------------------------
+
+export type NavItem = {
+  label: string;
+  path: string;
+};
+
+export type NavigationProps = {
+  items: NavItem[];
+};
+
+// -------------------------------------------------------------------------
+// PLACEHOLDER PAGE TYPES
+// -------------------------------------------------------------------------
+
+export type PlaceholderPageProps = {
+  title: string;
+};

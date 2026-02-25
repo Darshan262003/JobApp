@@ -6,3 +6,5 @@ export { Input } from './Input/Input';
 export { ProofFooter } from './ProofFooter/ProofFooter';
 export { EmptyState } from './EmptyState/EmptyState';
 export { ErrorState } from './ErrorState/ErrorState';
+export { Navigation } from './Navigation/Navigation';
+export { PlaceholderPage } from './PlaceholderPage/PlaceholderPage';

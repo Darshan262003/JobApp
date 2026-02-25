@@ -1,0 +1,48 @@
+/* ==========================================================================
+   MAIN LAYOUT
+   Layout with shared navigation shell
+   ========================================================================== */
+
+@import '../../styles/tokens.css';
+
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--color-background);
+}
+
+.main-layout__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--topbar-height);
+  padding: 0 var(--space-3);
+  background-color: var(--color-background-elevated);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+}
+
+.main-layout__brand {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+  letter-spacing: var(--tracking-tight);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.main-layout__brand:hover {
+  color: var(--color-accent);
+}
+
+.main-layout__main {
+  flex: 1;
+  max-width: var(--layout-max-width);
+  margin: 0 auto;
+  width: 100%;
+  padding: var(--space-3);
+}
